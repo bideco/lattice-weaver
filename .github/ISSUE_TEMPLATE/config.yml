@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Licensing / purchase / refund support
+    url: mailto:support@bide.cx
+    about: For anything about your license key, activation trouble, machine transfers, or refunds — email support@bide.cx for a faster response than a public issue.
+  - name: Download the mod
+    url: https://modrinth.com/mod/latticework
+    about: The free Fabric mod. Install this into each Minecraft instance.
+  - name: Buy a companion license
+    url: https://buy.polar.sh/polar_cl_qnTeBhgJpeI7j7WgCHctmznEsHK9W5wrLsQaV33itbu
+    about: One-time $14.99 unlock for the Lattice Weaver companion app.

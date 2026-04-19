@@ -24,11 +24,19 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
   color: var(--fg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
+}
+body {
+  background-color: var(--bg);
+  /* Subtle diamond-lattice texture: two crossing diagonals per 40px tile,
+     accent-blue at ~5% opacity so it reads as surface texture, not pattern. */
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20 L20 0 L40 20 L20 40 Z' fill='none' stroke='%236ea5ff' stroke-width='1' stroke-opacity='0.07'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 .wrap {
   max-width: 760px;

@@ -1,0 +1,53 @@
+name: Compatibility / MC version issue
+description: The mod won't load, or a specific MC / Fabric / Java version misbehaves.
+title: "[Compat] MC "
+labels: ["compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for "the mod won't load on MC X.Y.Z", Fabric loader errors, "Mod resolution failed" dialogs, JVM mismatches, and similar.
+  - type: input
+    id: mc-version
+    attributes:
+      label: Exact Minecraft version
+      description: Including the patch number (e.g. 26.1.2, not just 26.1)
+    validations:
+      required: true
+  - type: input
+    id: fabric-loader
+    attributes:
+      label: Fabric Loader version
+      placeholder: "0.15.11"
+    validations:
+      required: true
+  - type: input
+    id: fabric-api
+    attributes:
+      label: Fabric API JAR filename
+      placeholder: "fabric-api-0.136.1+1.21.8.jar"
+    validations:
+      required: true
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      description: Output of `java -version`
+      placeholder: "OpenJDK 21.0.3"
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Fabric / loader error
+      description: The full "Mod resolution failed" dialog or the relevant section of `.minecraft/logs/latest.log`.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: mod-jar
+    attributes:
+      label: Lattice mod JAR filename
+      placeholder: "latticework-1.0.0+1.21.8.jar"
+    validations:
+      required: true

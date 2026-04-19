@@ -1,0 +1,46 @@
+name: Feature request
+description: Suggest a new capability or enhancement.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check the [Future Development section of the guide](https://github.com/bideco/lattice-weaver#future-development) and the existing [issues](https://github.com/bideco/lattice-weaver/issues) first — your idea may already be on the roadmap or filed.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What are you trying to do that the current system makes hard or impossible?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed behavior
+      description: What should Lattice do differently?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you thought about and why they don't work as well.
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Mod (in-game)
+        - Companion (Windows app)
+        - Input routing / driver
+        - HUD / UI
+        - Configuration
+        - Licensing / activation
+        - Documentation
+        - Other
+    validations:
+      required: true

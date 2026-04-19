@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lattice Weaver — local couch co-op for Minecraft</title>
+<meta name="description" content="Lattice Weaver is the Windows companion app for the Lattice Minecraft mod — local splitscreen with multiple mice, keyboards, and players on one PC.">
+<meta property="og:title" content="Lattice Weaver">
+<meta property="og:description" content="Local splitscreen for Minecraft — multiple mice, multiple keyboards, multiple players, one PC.">
+<meta property="og:url" content="https://bide.cx">
+<meta property="og:type" content="website">
+<style>
+:root {
+  --bg: #0e0f13;
+  --fg: #e8e9ee;
+  --muted: #8b8f99;
+  --accent: #6ea5ff;
+  --border: #23252c;
+  --card: #16181d;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+header h1 {
+  font-size: 44px;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+header p.tag {
+  color: var(--muted);
+  font-size: 18px;
+  margin: 0 0 40px 0;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.card h2 {
+  margin: 0 0 12px 0;
+  font-size: 22px;
+}
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #0e0f13;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 12px;
+  margin-top: 8px;
+}
+.btn.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn:hover { opacity: 0.9; }
+a { color: var(--accent); }
+code {
+  background: #0a0b0e;
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+pre {
+  background: #0a0b0e;
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 14px;
+}
+ul { padding-left: 22px; }
+li { margin: 6px 0; }
+footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
+}
+.hash {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  word-break: break-all;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lattice Weaver</h1>
+  <p class="tag">Local couch co-op for Minecraft. Two or more players, each with their own mouse and keyboard, all on one PC.</p>
+</header>
+
+<div class="card">
+  <h2>Download</h2>
+  <p>Windows 10/11. Drops into any folder — no installer.</p>
+  <a class="btn" href="https://github.com/bideco/lattice-weaver/releases/latest/download/lattice-weaver.exe">Download lattice-weaver.exe</a>
+  <a class="btn secondary" href="https://github.com/bideco/lattice-weaver/releases">All releases</a>
+  <p class="hash">SHA-256: <span id="sha">1f2445dd685e6fcc040c28b864effed99ee7090e02946f836bef196b5d791353</span></p>
+</div>
+
+<div class="card">
+  <h2>How it works</h2>
+  <p>Lattice Weaver is the companion app for the <a href="https://modrinth.com/mod/latticework">Lattice mod on Modrinth</a>. Install the free mod into each Minecraft instance, run Lattice Weaver, assign a mouse and keyboard to each player slot, and every player gets their own game window on the same PC.</p>
+  <ul>
+    <li><strong>45-minute free trial</strong> — active playtime only, no card required</li>
+    <li>One-time <strong>$14.99</strong> license unlocks unlimited use</li>
+    <li>Activation is one POST — offline forever after</li>
+  </ul>
+  <a class="btn" href="https://buy.polar.sh/polar_cl_qnTeBhgJpeI7j7WgCHctmznEsHK9W5wrLsQaV33itbu">Buy a license key</a>
+  <a class="btn secondary" href="https://modrinth.com/mod/latticework">Install the mod</a>
+</div>
+
+<div class="card">
+  <h2>After you buy</h2>
+  <p>Polar emails your key instantly. Activate with:</p>
+<pre>lattice-weaver.exe --unlock latw-XXXXX-XXXXX-…</pre>
+  <p>One key per PC. To transfer to a new machine, re-run the unlock command from there — the server auto-rebinds after a 365-day cooldown, or email <a href="mailto:support@bide.cx">support@bide.cx</a> for a faster rebind.</p>
+</div>
+
+<div class="card">
+  <h2>Compatibility</h2>
+  <ul>
+    <li>Windows 10 or 11</li>
+    <li>Fabric-loader Minecraft (1.20.1, 1.21.1, 1.21.8, 1.21.10, 26.1)</li>
+    <li>Interception kernel driver recommended (the companion prompts you to install it on first run if missing)</li>
+  </ul>
+</div>
+
+<footer>
+  <p>
+    <a href="https://modrinth.com/mod/latticework">Modrinth</a> ·
+    <a href="https://github.com/bideco/lattice-weaver">GitHub</a> ·
+    <a href="mailto:support@bide.cx">Support</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

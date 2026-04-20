@@ -13,12 +13,13 @@
 <link rel="apple-touch-icon" sizes="64x64" href="/favicon.png">
 <style>
 :root {
-  --bg: #0e0f13;
-  --fg: #e8e9ee;
+  --bg: #090b10;
+  --fg: #e2e6f0;
   --muted: #8b8f99;
-  --accent: #6ea5ff;
-  --border: #23252c;
-  --card: #16181d;
+  --accent: #00cce4;
+  --accent-dim: #007a90;
+  --border: #1e2535;
+  --card: #0f1219;
 }
 * { box-sizing: border-box; }
 html, body {
@@ -31,9 +32,7 @@ html, body {
 }
 body {
   background-color: var(--bg);
-  /* Subtle diamond-lattice texture: two crossing diagonals per 40px tile,
-     accent-blue at ~5% opacity so it reads as surface texture, not pattern. */
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20 L20 0 L40 20 L20 40 Z' fill='none' stroke='%236ea5ff' stroke-width='1' stroke-opacity='0.07'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20 L20 0 L40 20 L20 40 Z' fill='none' stroke='%2300cce4' stroke-width='1' stroke-opacity='0.06'/%3E%3C/svg%3E");
   background-size: 40px 40px;
   background-attachment: fixed;
   min-height: 100vh;
@@ -43,12 +42,21 @@ body {
   margin: 0 auto;
   padding: 64px 24px;
 }
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
 header h1 {
   font-size: 44px;
-  margin: 0 0 8px 0;
+  margin: 0;
   letter-spacing: -0.02em;
 }
-header p.tag {
+header .icon {
+  flex-shrink: 0;
+}
+.tagline {
   color: var(--muted);
   font-size: 18px;
   margin: 0 0 40px 0;
@@ -67,7 +75,7 @@ header p.tag {
 .btn {
   display: inline-block;
   background: var(--accent);
-  color: #0e0f13;
+  color: #090b10;
   padding: 12px 20px;
   border-radius: 8px;
   text-decoration: none;
@@ -83,14 +91,14 @@ header p.tag {
 .btn:hover { opacity: 0.9; }
 a { color: var(--accent); }
 code {
-  background: #0a0b0e;
+  background: #060810;
   border: 1px solid var(--border);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 14px;
 }
 pre {
-  background: #0a0b0e;
+  background: #060810;
   border: 1px solid var(--border);
   padding: 16px;
   border-radius: 8px;
@@ -118,9 +126,40 @@ footer {
 <div class="wrap">
 
 <header>
+  <div class="icon">
+    <svg width="48" height="48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg" cx="50%" cy="50%" r="72%">
+          <stop offset="0%" stop-color="#161c2a"/>
+          <stop offset="100%" stop-color="#090c14"/>
+        </radialGradient>
+        <filter id="gl" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="1.6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <rect width="64" height="64" rx="8" fill="url(#bg)"/>
+      <g stroke="#00b8d4" stroke-width="0.65" opacity="0.22">
+        <line x1="0" y1="32" x2="32" y2="0"/><line x1="0" y1="64" x2="64" y2="0"/>
+        <line x1="32" y1="64" x2="64" y2="32"/><line x1="32" y1="0" x2="64" y2="32"/>
+        <line x1="0" y1="0" x2="64" y2="64"/><line x1="0" y1="32" x2="32" y2="64"/>
+      </g>
+      <g filter="url(#gl)" stroke="#00d8f0" stroke-width="1.7" opacity="0.92">
+        <line x1="16" y1="32" x2="32" y2="16"/><line x1="32" y1="16" x2="48" y2="32"/>
+        <line x1="48" y1="32" x2="32" y2="48"/><line x1="32" y1="48" x2="16" y2="32"/>
+      </g>
+      <rect x="27.5" y="27.5" width="9" height="9" transform="rotate(45 32 32)" fill="#0a1420" stroke="#00d8f0" stroke-width="1.2" opacity="0.8"/>
+      <g filter="url(#gl)">
+        <rect x="13" y="29" width="6" height="6" fill="#f0c800"/>
+        <rect x="29" y="13" width="6" height="6" fill="#00cce4"/>
+        <rect x="45" y="29" width="6" height="6" fill="#cc2898"/>
+        <rect x="29" y="45" width="6" height="6" fill="#28b44c"/>
+      </g>
+    </svg>
+  </div>
   <h1>Lattice Weaver</h1>
-  <p class="tag">Local couch co-op for Minecraft. Two or more players, each with their own mouse and keyboard, all on one PC.</p>
 </header>
+<p class="tagline">Local couch co-op for Minecraft. Two or more players, each with their own mouse and keyboard, all on one PC.</p>
 
 <div class="card">
   <h2>Download</h2>

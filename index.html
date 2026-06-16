@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lattice Weaver - local couch co-op for Minecraft</title>
-<meta name="description" content="Lattice Weaver is the Windows companion app for the Lattice Minecraft mod - local splitscreen with multiple mice, keyboards, and players on one PC.">
-<meta property="og:title" content="Lattice Weaver">
-<meta property="og:description" content="Local splitscreen for Minecraft - multiple mice, multiple keyboards, multiple players, one PC.">
+<title>Lattice - local couch co-op for Windows games</title>
+<meta name="description" content="Lattice is a Windows companion app plus game adapters for local couch co-op with multiple keyboards, mice, cursors, and game windows on one PC.">
+<meta property="og:title" content="Lattice">
+<meta property="og:description" content="Local couch co-op for Windows games - multiple mice, keyboards, players, and game windows on one PC.">
 <meta property="og:url" content="https://bide.cx">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://bide.cx/favicon.png">
+<meta property="og:image" content="https://bide.cx/marketing-assets/minecraft-dual-instance-coop.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
 <link rel="apple-touch-icon" sizes="64x64" href="/favicon.png">
 <style>
@@ -18,9 +18,10 @@
   --fg: #e2e6f0;
   --muted: #8b8f99;
   --accent: #00cce4;
-  --accent-dim: #007a90;
+  --accent-2: #f59e0b;
   --border: #1e2535;
   --card: #0f1219;
+  --card-2: #111722;
 }
 * { box-sizing: border-box; }
 html, body {
@@ -33,98 +34,153 @@ html, body {
 }
 body {
   background-color: var(--bg);
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20 L20 0 L40 20 L20 40 Z' fill='none' stroke='%2300cce4' stroke-width='1' stroke-opacity='0.06'/%3E%3C/svg%3E");
-  background-size: 40px 40px;
+  background-image:
+    radial-gradient(circle at 18% 0%, rgba(0,204,228,0.16), transparent 34rem),
+    radial-gradient(circle at 82% 16%, rgba(245,158,11,0.12), transparent 28rem),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20 L20 0 L40 20 L20 40 Z' fill='none' stroke='%2300cce4' stroke-width='1' stroke-opacity='0.055'/%3E%3C/svg%3E");
+  background-size: auto, auto, 40px 40px;
   background-attachment: fixed;
   min-height: 100vh;
 }
 .wrap {
-  max-width: 760px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 64px 24px;
+  padding: 56px 24px;
 }
 header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 }
-header h1 {
-  font-size: 44px;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-header .icon {
-  flex-shrink: 0;
-}
-header .icon img {
+header img {
   display: block;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
+}
+h1 {
+  font-size: clamp(42px, 8vw, 84px);
+  line-height: 0.95;
+  margin: 0;
+  letter-spacing: -0.06em;
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
 }
 .tagline {
+  max-width: 740px;
   color: var(--muted);
-  font-size: 18px;
-  margin: 0 0 40px 0;
+  font-size: clamp(19px, 2.5vw, 27px);
+  margin: 0 0 28px;
 }
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-  margin: 24px 0;
-}
-.card h2 {
-  margin: 0 0 12px 0;
-  font-size: 22px;
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 34px;
 }
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--accent);
-  color: #090b10;
-  padding: 12px 20px;
-  border-radius: 8px;
+  color: #061014;
+  padding: 12px 18px;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: 600;
-  margin-right: 12px;
-  margin-top: 8px;
+  font-weight: 800;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 36px rgba(0,204,228,0.16);
 }
 .btn.secondary {
   background: transparent;
   color: var(--accent);
-  border: 1px solid var(--accent);
+  border: 1px solid rgba(0,204,228,0.55);
+  box-shadow: none;
 }
-.btn:hover { opacity: 0.9; }
-a { color: var(--accent); }
-code {
-  background: #060810;
+.btn.gold {
+  background: var(--accent-2);
+  color: #130d02;
+  box-shadow: 0 12px 36px rgba(245,158,11,0.13);
+}
+.btn:hover { transform: translateY(-1px); opacity: 0.94; }
+.hero {
+  width: 100%;
   border: 1px solid var(--border);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 18px;
+  display: block;
+  box-shadow: 0 26px 90px rgba(0,0,0,0.35);
 }
-pre {
-  background: #060810;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.card {
+  background: linear-gradient(180deg, var(--card), var(--card-2));
   border: 1px solid var(--border);
-  padding: 16px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 14px;
+  border-radius: 16px;
+  padding: 22px;
 }
-ul { padding-left: 22px; }
+.card h2, .card h3 {
+  margin: 0 0 10px;
+  line-height: 1.15;
+}
+.card p { color: var(--muted); margin: 0 0 12px; }
+.shot {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 12px 0 0;
+}
+.pill {
+  display: inline-block;
+  border: 1px solid rgba(0,204,228,0.45);
+  border-radius: 999px;
+  color: var(--accent);
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+ul { padding-left: 20px; margin: 10px 0 0; color: var(--muted); }
 li { margin: 6px 0; }
+a { color: var(--accent); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+th { color: var(--muted); font-size: 13px; }
 footer {
-  margin-top: 48px;
+  margin-top: 44px;
   padding-top: 24px;
   border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 14px;
 }
-.hash {
-  color: var(--muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
-  word-break: break-all;
+@media (max-width: 780px) {
+  header { grid-template-columns: 1fr; }
+  .grid, .two { grid-template-columns: 1fr; }
+  .wrap { padding: 34px 18px; }
 }
 </style>
 </head>
@@ -132,55 +188,97 @@ footer {
 <div class="wrap">
 
 <header>
-  <div class="icon">
-    <img src="/favicon.png" alt="Lattice icon">
+  <img src="/favicon.png" alt="Lattice icon">
+  <div>
+    <p class="eyebrow">Lattice Weaver + game adapters</p>
+    <h1>Local couch co-op, one Windows PC.</h1>
   </div>
-  <h1>Lattice Weaver</h1>
 </header>
-<p class="tagline">Local couch co-op for Minecraft. Two or more players, each with their own mouse and keyboard, all on one PC.</p>
 
-<div class="card">
-  <h2>Download</h2>
-  <p>Windows 10/11. Drops into any folder - no installer.</p>
-  <a class="btn" href="https://github.com/bideco/lattice-weaver/releases/latest/download/lattice-weaver.exe">Download lattice-weaver.exe</a>
-  <a class="btn secondary" href="https://github.com/bideco/lattice-weaver/releases">All releases</a>
-  <p class="hash">SHA-256: <span id="sha">1f2445dd685e6fcc040c28b864effed99ee7090e02946f836bef196b5d791353</span></p>
+<p class="tagline">Give additional local players their own keyboard, mouse, cursor, and game window in supported games.</p>
+
+<div class="actions">
+  <a class="btn" href="https://files.bide.cx/">Download Lattice</a>
+  <a class="btn gold" href="https://buy.polar.sh/polar_cl_qnTeBhgJpeI7j7WgCHctmznEsHK9W5wrLsQaV33itbu">Buy license</a>
+  <a class="btn secondary" href="https://github.com/bideco/lattice-weaver/releases/latest">Latest release</a>
+  <a class="btn secondary" href="https://modrinth.com/mod/latticework">Minecraft mod</a>
 </div>
 
-<div class="card">
-  <h2>How it works</h2>
-  <p>Lattice Weaver is the companion app for the <a href="https://modrinth.com/mod/latticework">Lattice mod on Modrinth</a>. Install the free mod into each Minecraft instance, run Lattice Weaver, assign a mouse and keyboard to each player slot, and every player gets their own game window on the same PC.</p>
-  <ul>
-    <li><strong>45-minute free trial</strong> - active playtime only, no card required</li>
-    <li>One-time <strong>$14.99</strong> license unlocks unlimited use</li>
-    <li>Activation is one POST - offline forever after</li>
-  </ul>
-  <a class="btn" href="https://buy.polar.sh/polar_cl_qnTeBhgJpeI7j7WgCHctmznEsHK9W5wrLsQaV33itbu">Buy a license key</a>
-  <a class="btn secondary" href="https://modrinth.com/mod/latticework">Install the mod</a>
+<img class="hero" src="/marketing-assets/minecraft-dual-instance-coop.png" alt="Two Minecraft windows routed through Lattice on one PC">
+
+<div class="grid">
+  <section class="card">
+    <span class="pill">P0 NATIVE</span>
+    <h2>Player 0 keeps Windows.</h2>
+    <p>Your main keyboard and mouse stay normal. Use the desktop, launchers, and game windows like usual.</p>
+  </section>
+  <section class="card">
+    <span class="pill">P1+ ROUTED</span>
+    <h2>Extra players get their own controls.</h2>
+    <p>Weaver's guided setup assigns selected keyboards and mice to player slots for supported game adapters.</p>
+  </section>
+  <section class="card">
+    <span class="pill">SUPPORTED ADAPTERS</span>
+    <h2>Minecraft and Paralives.</h2>
+    <p>Install the game-side adapter, start Weaver, and launch the game instances you want to play.</p>
+  </section>
 </div>
 
-<div class="card">
-  <h2>After you buy</h2>
-  <p>Polar emails your key instantly. Activate with:</p>
-<pre>lattice-weaver.exe --unlock latw-XXXXX-XXXXX-...</pre>
-  <p>One key per PC. To transfer to a new machine, re-run the unlock command from there - the server auto-rebinds after a 365-day cooldown, or email <a href="mailto:support@bide.cx">support@bide.cx</a> for a faster rebind.</p>
+<section class="card">
+  <h2>Supported games</h2>
+  <table>
+    <tr><th>Game</th><th>Status</th><th>What Lattice adds</th></tr>
+    <tr><td><strong>Minecraft Java</strong></td><td>Supported</td><td>Fabric builds for Minecraft <code>1.20</code> through <code>26.1.2</code>, virtual cursors, slot HUD, P0 master settings, profiles, resource-pack controls, and guided JVM setup.</td></tr>
+    <tr><td><strong>Paralives</strong></td><td>Supported</td><td>Routed second-player mouse and keyboard input through the Lattice plugin, with a visible player cursor.</td></tr>
+    <tr><td><strong>Developer adapters</strong></td><td>Public devkit</td><td>SDKs, schemas, sample manifests, and adapter contract notes for supported-game integrations.</td></tr>
+  </table>
+</section>
+
+<div class="grid two">
+  <section class="card">
+    <h2>Lattice Weaver</h2>
+    <p>The Windows companion app handles player slots, guided setup, device assignment, profile selection, and adapter connections.</p>
+    <img class="shot" src="/marketing-assets/weaver-dashboard.png" alt="Lattice Weaver dashboard">
+  </section>
+  <section class="card">
+    <h2>Minecraft master controls</h2>
+    <p>Player 0 can adjust routed-player Minecraft settings from a purpose-built in-game control screen.</p>
+    <img class="shot" src="/marketing-assets/minecraft-master-settings-screen.png" alt="Minecraft master settings screen">
+  </section>
 </div>
 
-<div class="card">
-  <h2>Compatibility</h2>
-  <ul>
-    <li>Windows 10 or 11</li>
-    <li>Fabric-loader Minecraft (1.20.1-1.20.6, 1.21-1.21.11, 26.1-26.1.2)</li>
-    <li>Interception kernel driver recommended (the companion prompts you to install it on first run if missing)</li>
-  </ul>
+<div class="grid two">
+  <section class="card">
+    <h2>Paralives adapter</h2>
+    <p>Route another player's input into Paralives while your native Windows controls remain available.</p>
+    <img class="shot" src="/marketing-assets/paralives-routed-input.jpg" alt="Paralives routed input">
+  </section>
+  <section class="card">
+    <h2>Developer devkit</h2>
+    <p>Build game adapters against the public adapter surface. Weaver remains closed-source; the devkit contains schemas, samples, and SDK libraries.</p>
+    <img class="shot" src="/marketing-assets/devkit-package.png" alt="Lattice devkit package">
+  </section>
 </div>
+
+<section class="card">
+  <h2>Downloads</h2>
+  <p>Get the companion app, Minecraft jars, Paralives plugin, checksums, and devkit from the download page.</p>
+  <div class="actions">
+    <a class="btn" href="https://files.bide.cx/">Open downloads</a>
+    <a class="btn secondary" href="https://files.bide.cx/Lattice-Bundle.zip">Download bundle</a>
+    <a class="btn secondary" href="https://files.bide.cx/Lattice-Devkit.zip">Download devkit</a>
+  </div>
+</section>
 
 <footer>
   <p>
-    <a href="https://modrinth.com/mod/latticework">Modrinth</a> |
     <a href="https://github.com/bideco/lattice-weaver">GitHub</a> |
+    <a href="https://modrinth.com/mod/latticework">Modrinth</a> |
+    <a href="https://files.bide.cx/">Downloads</a> |
+    <a href="mailto:orders@bide.cx">Orders</a> |
     <a href="mailto:support@bide.cx">Support</a>
   </p>
+  <p>Lattice is built by bideco for local multiplayer setups on Windows.</p>
 </footer>
 
 </div>

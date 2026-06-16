@@ -1,0 +1,20 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="200" fill="#090b10"></rect>
+  <defs>
+    <pattern id="lattice" x="0" y="0" width="52" height="52" patternUnits="userSpaceOnUse">
+      <line x1="26" y1="0" x2="52" y2="26" stroke="#00d8f0" stroke-width="1.2" opacity="0.18"></line>
+      <line x1="0" y1="26" x2="26" y2="0" stroke="#00d8f0" stroke-width="1.2" opacity="0.18"></line>
+      <line x1="0" y1="26" x2="26" y2="52" stroke="#00d8f0" stroke-width="1.2" opacity="0.18"></line>
+      <line x1="26" y1="52" x2="52" y2="26" stroke="#00d8f0" stroke-width="1.2" opacity="0.18"></line>
+    </pattern>
+  </defs>
+  <rect width="800" height="200" fill="url(#lattice)"></rect>
+  
+  <rect x="49" y="-3" width="6" height="6" transform="rotate(45 52 0)" fill="#00d8f0" opacity="0.25"></rect>
+  <rect x="101" y="-3" width="6" height="6" transform="rotate(45 104 0)" fill="#00d8f0" opacity="0.25"></rect>
+  <rect x="153" y="-3" width="6" height="6" transform="rotate(45 156 0)" fill="#00d8f0" opacity="0.25"></rect>
+  <rect x="-3" y="49" width="6" height="6" transform="rotate(45 0 52)" fill="#00d8f0" opacity="0.25"></rect>
+  <rect x="49" y="49" width="6" height="6" transform="rotate(45 52 52)" fill="#00d8f0" opacity="0.25"></rect>
+  <rect x="101" y="49" width="6" height="6" transform="rotate(45 104 52)" fill="#00d8f0" opacity="0.25"></rect>
+  <rect x="153" y="49" width="6" height="6" transform="rotate(45 156 52)" fill="#00d8f0" opacity="0.25"></rect>
+</svg>

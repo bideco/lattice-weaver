@@ -1,0 +1,39 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<defs>
+      <radialGradient id="bg" cx="50%" cy="50%" r="72%">
+        <stop offset="0%" stop-color="#161c2a"></stop>
+        <stop offset="100%" stop-color="#090c14"></stop>
+      </radialGradient></defs>
+      <rect width="64" height="64" fill="url(#bg)"></rect>
+  <defs>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="1.6" result="b"></feGaussianBlur>
+      <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+  
+  <g stroke="#00b8d4" stroke-width="0.65" opacity="0.22">
+    <line x1="0" y1="32" x2="32" y2="0"></line>
+    <line x1="0" y1="64" x2="64" y2="0"></line>
+    <line x1="32" y1="64" x2="64" y2="32"></line>
+    <line x1="32" y1="0" x2="64" y2="32"></line>
+    <line x1="0" y1="0" x2="64" y2="64"></line>
+    <line x1="0" y1="32" x2="32" y2="64"></line>
+  </g>
+  
+  <g filter="url(#glow)" stroke="#00d8f0" stroke-width="1.7" opacity="0.92">
+    <line x1="16" y1="32" x2="32" y2="16"></line>
+    <line x1="32" y1="16" x2="48" y2="32"></line>
+    <line x1="48" y1="32" x2="32" y2="48"></line>
+    <line x1="32" y1="48" x2="16" y2="32"></line>
+  </g>
+  
+  <rect x="27.5" y="27.5" width="9" height="9" transform="rotate(45 32 32)" fill="#0a1420" stroke="#00d8f0" stroke-width="1.2" opacity="0.8"></rect>
+  
+  <g filter="url(#glow)">
+    <rect x="13" y="29" width="6" height="6" fill="#f0c800"></rect>
+    <rect x="29" y="13" width="6" height="6" fill="#00cce4"></rect>
+    <rect x="45" y="29" width="6" height="6" fill="#cc2898"></rect>
+    <rect x="29" y="45" width="6" height="6" fill="#28b44c"></rect>
+  </g>
+</svg>

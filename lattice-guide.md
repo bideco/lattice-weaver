@@ -134,8 +134,8 @@ to that player's game instance instead.
 
 1. **Start Lattice Weaver first** — it creates the named pipes immediately, even before you finish
    device setup.
-2. **Launch each Minecraft instance** — they connect to their pipe (`\\.\pipe\latticework-N`)
-   automatically.
+2. **Launch each Minecraft instance** — they connect to their pipes
+   (`\\.\pipe\latticework-N-out` / `-in`) automatically.
 3. The HUD shows a green dot when the pipe links.
 
 ### Pause / Resume Routing

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lattice Weaver: Dashboard</title>
+<meta name="description" content="A themed, interactive preview of the Lattice Weaver dashboard. Visual only." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+/* Tokens ported from companion/src/gui/theme.rs; overwritten per-theme by JS. */
+:root{
+  --bg:#101118;--titlebar:#16171F;--panel:#14151C;--window-border:#3E4254;--card:#1E202A;
+  --elevated:#262A38;--row-bg:#181A22;--stroke:#303342;--stroke-hover:#3E4254;--text:#E2E5F0;
+  --muted:#949BAF;--faint:#6C7288;--text-disabled:#50556A;--accent:#818CF8;--accent-hover:#97A0FA;
+  --ok:#34D399;--warn:#FBBF24;--bad:#F87171;--p0:var(--accent);--p1:#2DD4BF;--p2:#E879F9;--p3:#38BDF8;
+  --r-btn:8px;--r-card:10px;--r-pill:999px;--ui-font:'Sora',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--ui-font);color:var(--text);background:transparent;display:flex;justify-content:center;padding:4px;overflow-x:hidden}
+.scaler{transform-origin:top center}
+.win{width:760px;background:var(--bg);border:1px solid var(--window-border);box-shadow:0 18px 50px rgba(0,0,0,.5);display:flex;flex-direction:column;font-size:13.5px}
+.tb{height:28px;background:var(--titlebar);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+.tb .t{font-size:11px;color:var(--faint)}
+.tb .caps{display:flex;gap:6px;color:var(--faint)}
+.tb .caps svg{width:12px;height:12px}
+.hd{height:56px;background:var(--panel);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.brand{display:flex;align-items:center;gap:8px}
+.jewel{width:22px;height:22px;color:var(--warn)}
+.word{font-weight:700;font-size:17.8px;letter-spacing:.22em}
+.hr{display:flex;align-items:center;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 11px;border-radius:var(--r-pill);font-weight:600;font-size:12.5px;white-space:nowrap}
+.chip.acc{border:1px solid var(--stroke)}.chip.acc .k{color:var(--muted)}.chip.acc .v{color:var(--ok);display:inline-flex;gap:3px;align-items:center}.chip.acc .v svg{width:13px;height:13px}
+.chip.lic{color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,transparent);border:1px solid color-mix(in srgb,var(--ok) 45%,transparent)}
+.banner{display:flex;align-items:center;gap:8px;padding:9px 16px;background:color-mix(in srgb,var(--warn) 12%,transparent);border-bottom:1px solid color-mix(in srgb,var(--warn) 40%,transparent)}
+.banner .d{width:11px;height:11px;background:var(--warn);transform:rotate(45deg)}
+.banner .px{font-weight:600;color:var(--warn)}.banner .sp{color:var(--warn);font-size:11.5px}.banner .rt{font-size:11.5px}.banner .fill{flex:1}
+.btn{font-family:var(--ui-font);font-weight:600;font-size:12.5px;border-radius:var(--r-btn);cursor:pointer;border:1px solid transparent;line-height:1}
+.btn.pri{background:var(--accent);color:var(--bg);padding:7px 14px}.btn.pri:hover{background:var(--accent-hover)}
+.btn.sec{background:var(--card);color:var(--text);border-color:var(--stroke);padding:6px 13px}.btn.sec:hover{background:var(--elevated);border-color:var(--stroke-hover)}
+.nav{font-family:var(--ui-font);font-weight:600;font-size:12.5px;padding:6px 13px;border-radius:var(--r-btn);background:var(--card);color:var(--muted);border:1px solid var(--stroke);cursor:default}
+.tool{height:46px;background:var(--panel);display:flex;align-items:center;gap:8px;padding:0 16px}
+.tool .cap{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-btn);font-weight:600;font-size:12.5px;color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent);border:1px solid color-mix(in srgb,var(--warn) 50%,transparent)}
+.tool .cap .cd{width:8px;height:8px;background:var(--warn);transform:rotate(45deg)}
+.tool .right{margin-left:auto;display:flex;gap:8px}
+.body{background:var(--bg);padding:12px 16px}
+.stitle{font-weight:600;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+.card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--r-card);padding:10px;min-height:180px;display:flex;flex-direction:column}
+.sh{display:flex;align-items:center;gap:6px}
+.bd{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:var(--r-pill);font-weight:600;font-size:12.5px}
+.role{font-size:12.5px;color:var(--muted)}
+.ic{margin-left:auto;display:flex;gap:6px}.ic .b{width:26px;height:26px;display:grid;place-items:center;border-radius:var(--r-btn);background:var(--card);border:1px solid var(--stroke);color:var(--muted)}.ic .b svg{width:15px;height:15px}
+.row{display:flex;align-items:center;gap:4px;background:var(--row-bg);border-radius:var(--r-btn);padding:4px 5px;margin-top:6px}
+.row .k{font-weight:600;font-size:11px;color:var(--faint)}.row .n{font-family:var(--mono);font-size:12px}
+.row .s{margin-left:auto;display:inline-flex;align-items:center;gap:3px;font-weight:600;font-size:11px;color:var(--ok)}.row .s .dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.foot{margin-top:auto;padding-top:8px;display:flex;align-items:center}
+.foot .pf{font-size:11px;color:var(--faint)}.foot .pf b{color:var(--muted);margin-left:3px}
+.foot .chips{margin-left:auto}
+.inst{font-size:10.5px;padding:1.5px 5px;border-radius:4px;color:var(--p0);background:color-mix(in srgb,var(--p0) 18%,transparent);border:1px solid color-mix(in srgb,var(--p0) 45%,transparent)}
+.tips{background:var(--bg);border-top:1px solid var(--stroke);display:flex;align-items:center;justify-content:center;gap:7px;padding:5px 16px;color:var(--muted);font-size:11.5px}
+.tips .d{width:7px;height:7px;background:var(--accent);transform:rotate(45deg)}
+/* theme picker */
+.tp{position:relative}
+.tp .cur{display:flex;align-items:center;gap:7px;padding:5px 10px;border-radius:var(--r-pill);background:var(--card);border:1px solid var(--stroke);color:var(--text);font-size:12px;font-weight:600;cursor:pointer}
+.tp .cur svg{width:11px;height:11px;color:var(--muted)}
+.tp .cur .sw{display:inline-flex;gap:3px}.tp .cur .sw i{width:9px;height:9px;border-radius:50%}
+.tp .menu{position:absolute;z-index:20;top:calc(100% + 4px);right:0;min-width:220px;max-height:300px;overflow-y:auto;background:var(--elevated);border:1px solid var(--stroke);border-radius:var(--r-btn);padding:4px;display:none;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.tp.open .menu{display:block}
+.tp .opt{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:12.5px}
+.tp .opt:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.tp .opt.sel{background:color-mix(in srgb,var(--accent) 18%,transparent);outline:1px solid var(--accent)}
+.tp .opt .sw{margin-left:auto;display:inline-flex;gap:3px}.tp .opt .sw i{width:9px;height:9px;border-radius:50%}
+.note{text-align:center;color:var(--faint);font-size:11px;padding:8px 0 2px}
+.note a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="scaler" id="scaler">
+<div class="win" id="win">
+  <div class="tb">
+    <div class="t">Lattice Weaver</div>
+    <div class="caps">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-disabled)"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </div>
+  </div>
+  <div class="hd">
+    <div class="brand">
+      <span class="jewel" id="jewel"></span>
+      <span class="word">LATTICE</span>
+    </div>
+    <div class="hr">
+      <!-- theme switcher -->
+      <div class="tp" id="tp">
+        <div class="cur" id="tpCur"><span class="sw" id="tpSw"></span><span id="tpName">Lattice Dark</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l7 7 7-7"/></svg></div>
+        <div class="menu" id="tpMenu"></div>
+      </div>
+      <div class="chip acc"><span class="k">Access</span><span class="v">Elevated
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 6L20 5"/></svg></span></div>
+      <div class="chip lic">PRO</div>
+    </div>
+  </div>
+  <div class="banner">
+    <span class="d"></span><span class="px">PAUSED</span><span class="sp">|</span>
+    <span class="rt">input isn't being routed.</span><span class="fill"></span>
+    <button class="btn pri">Resume</button>
+  </div>
+  <div class="tool">
+    <button class="btn pri">Setup</button>
+    <span class="cap"><span class="cd"></span>Capture</span>
+    <div class="right">
+      <span class="nav">Settings</span><span class="nav">Games</span><span class="nav">Help</span>
+      <button class="btn sec">Quit</button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="stitle">Player slots</div>
+    <div class="grid">
+      <div class="card" style="--slotc:var(--p0)">
+        <div class="sh">
+          <span class="bd" style="color:var(--p0);background:color-mix(in srgb,var(--p0) 18%,transparent);border:1px solid color-mix(in srgb,var(--p0) 55%,transparent)">P0</span>
+          <span class="role">Native · you</span>
+        </div>
+        <div class="row"><span class="k">MOU</span><span class="n">Preview Mouse (P0)</span><span class="s">OK<span class="dot"></span></span></div>
+        <div class="row"><span class="k">KEY</span><span class="n">Preview Keyboard (P0)</span><span class="s">OK<span class="dot"></span></span></div>
+        <div class="foot"><span class="chips"><span class="inst" style="--p0:var(--p0)">1.21.8 · active</span></span></div>
+      </div>
+      <div class="card" style="--slotc:var(--p1)">
+        <div class="sh">
+          <span class="bd" style="color:var(--p1);background:color-mix(in srgb,var(--p1) 18%,transparent);border:1px solid color-mix(in srgb,var(--p1) 55%,transparent)">P1</span>
+          <span class="role">Claimed</span>
+          <span class="ic">
+            <span class="b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 11a8 8 0 1 0-2.3 6"/><path d="M20 5v6h-6"/></svg></span>
+            <span class="b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg></span>
+          </span>
+        </div>
+        <div class="row"><span class="k">CMOU</span><span class="n">Preview Mouse (P1)</span><span class="s">OK<span class="dot"></span></span></div>
+        <div class="row"><span class="k">CKEY</span><span class="n">Preview Keyboard (P1)</span><span class="s">OK<span class="dot"></span></span></div>
+        <div class="foot"><span class="pf">Profile:<b>LIVE</b></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="tips"><span class="d"></span><span>Tip: press T to try a new look.</span><span class="d"></span></div>
+</div>
+<div class="note">Interactive demo. Visual only. <a href="index.html" target="_blank" rel="noopener">Open the full Weaver demo →</a></div>
+</div>
+
+<script src="js/themes.js"></script>
+<script>
+(function(){
+  "use strict";
+  var win = document.getElementById("win");
+  function themeById(id){return WEAVER_THEMES.find(function(t){return t.id===id;})||WEAVER_THEMES[0];}
+  function apply(id){
+    var t=themeById(id),k=t.tokens,m={
+      "--bg":k.bg,"--titlebar":k.titlebar,"--panel":k.panel,"--window-border":k.window_border,"--card":k.card,
+      "--elevated":k.elevated,"--row-bg":k.row_bg,"--stroke":k.stroke,"--stroke-hover":k.stroke_hover,"--text":k.text,
+      "--muted":k.muted,"--faint":k.faint,"--text-disabled":k.text_disabled,"--accent":k.accent,
+      "--accent-hover":k.accent_hover,"--ok":k.ok,"--warn":k.warn,"--bad":k.bad,"--p0":k.accent};
+    for(var key in m) win.style.setProperty(key,m[key]);
+    document.getElementById("tpName").textContent=t.name;
+    document.getElementById("tpSw").innerHTML=sw(t);
+    fit();
+  }
+  function sw(t){return [t.tokens.accent,t.tokens.ok,t.tokens.warn,t.tokens.bad].map(function(c){return '<i style="background:'+c+'"></i>';}).join("");}
+  // jewel
+  document.getElementById("jewel").innerHTML='<svg viewBox="0 0 24 24" width="100%" height="100%"><polygon points="12,2 22,12 12,22 2,12" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="12,7 17,12 12,17 7,12" fill="currentColor"/></svg>';
+  // menu
+  var menu=document.getElementById("tpMenu");
+  WEAVER_THEMES.forEach(function(t){
+    var o=document.createElement("div");o.className="opt"+(t.id==="lattice"?" sel":"");
+    o.innerHTML='<span>'+t.name+'</span><span class="sw">'+sw(t)+'</span>';
+    o.addEventListener("click",function(e){e.stopPropagation();menu.querySelectorAll(".opt").forEach(function(x){x.classList.remove("sel");});o.classList.add("sel");document.getElementById("tp").classList.remove("open");apply(t.id);});
+    menu.appendChild(o);
+  });
+  document.getElementById("tpCur").addEventListener("click",function(e){e.stopPropagation();document.getElementById("tp").classList.toggle("open");});
+  document.addEventListener("click",function(){document.getElementById("tp").classList.remove("open");});
+  // T key cycles
+  var idx=0;
+  document.addEventListener("keydown",function(e){
+    if(e.key==="t"||e.key==="T"){var n=WEAVER_THEMES.length;idx=((WEAVER_THEMES.findIndex(function(t){return document.getElementById("tpName").textContent===t.name;})+(e.shiftKey?-1:1))%n+n)%n;var th=WEAVER_THEMES[idx];menu.querySelectorAll(".opt").forEach(function(x,i){x.classList.toggle("sel",i===idx);});apply(th.id);}
+  });
+  function fit(){var s=document.getElementById("scaler");var avail=Math.min(window.innerWidth-8,760);var sc=Math.min(1,avail/760);s.style.transform="scale("+sc+")";s.style.width="760px";s.style.height=(document.getElementById("win").offsetHeight+28)*sc+"px";}
+  window.addEventListener("resize",fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  apply("lattice");fit();setTimeout(fit,400);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lattice Weaver: Interactive Demo</title>
+<meta name="description" content="Explore the Lattice Weaver companion app's interface in your browser. Visual and navigational only. No devices are accessed." />
+<link rel="icon" type="image/png" href="../favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Chakra+Petch:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&family=Saira:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/weaver.css" />
+</head>
+<body>
+
+<div class="demo-notice">
+  <span class="dot">◆</span>
+  <span>Interactive demo. Visual only, no devices are accessed.</span>
+</div>
+
+<div class="demo-stage">
+  <div class="demo-sub" id="intro">
+    This is a faithful, non-functional replica of the <b>Lattice Weaver</b> companion app.
+    Click the navigation, switch themes in <b>Settings → Theme</b>, run the guided
+    <b>Setup</b> and <b>Calibrate mouse</b> walkthroughs. Nothing here touches real hardware.
+    <a href="teaser.html" target="_blank" rel="noopener">Open the compact dashboard teaser →</a>
+  </div>
+
+  <div class="weaver-scaler" id="scaler">
+  <div class="weaver-window" id="window">
+
+    <!-- ===== titlebar (28px) ===== -->
+    <div class="wv-titlebar">
+      <div class="title">Lattice Weaver</div>
+      <div class="wv-caption">
+        <div class="wv-capbtn" title="Minimize to tray" data-icon="minimize"></div>
+        <div class="wv-capbtn disabled" data-icon="maximize"></div>
+        <div class="wv-capbtn" title="Close to tray" data-icon="close"></div>
+      </div>
+    </div>
+
+    <!-- ===== header (56px) ===== -->
+    <div class="wv-header">
+      <div class="wv-brand">
+        <span class="wv-jewel" id="headJewel" data-jewel></span>
+        <span class="wv-wordmark">LATTICE</span>
+      </div>
+      <div class="wv-header-right">
+        <div class="wv-chip access" title="Elevated access (demo)">
+          <span class="k">Access</span>
+          <span class="v">Elevated <span data-icon="check"></span></span>
+        </div>
+        <div class="wv-chip license lic" id="licenseChip" title="PRO (demo)">PRO</div>
+      </div>
+    </div>
+
+    <!-- ===== banner strip (routing state) ===== -->
+    <div class="wv-banner" id="banner">
+      <span class="bdot"><span class="diamond"></span></span>
+      <span class="prefix" id="bannerPrefix">PAUSED</span>
+      <span class="sep">|</span>
+      <span class="rest" id="bannerRest">input isn't being routed.</span>
+      <span class="spacer"></span>
+      <button class="btn primary" id="resumeBtn">Resume</button>
+    </div>
+
+    <!-- ===== toolbar (46px) ===== -->
+    <div class="wv-toolbar">
+      <button class="btn primary" id="setupBtn">Setup</button>
+      <div class="capbtn" id="captureBtn"><span class="cdot"></span><span>Capture</span></div>
+      <div class="right">
+        <button class="navbtn" data-nav="settings">Settings</button>
+        <button class="navbtn" data-nav="games">Games</button>
+        <button class="navbtn" data-nav="help">Help</button>
+        <button class="btn secondary" id="quitBtn">Quit</button>
+      </div>
+    </div>
+
+    <!-- ===== body ===== -->
+    <div class="wv-body" id="body">
+
+      <!-- ---------- Dashboard ---------- -->
+      <section class="screen active" data-screen="dashboard">
+        <div class="section-title">Player slots</div>
+        <div class="slots-grid" id="slotsGrid"></div>
+      </section>
+
+      <!-- ---------- Settings ---------- -->
+      <section class="screen" data-screen="settings">
+        <div class="page-head">
+          <button class="iconbtn" data-home data-icon="back"></button>
+          <div class="title">Settings</div>
+        </div>
+        <div class="page-rule"></div>
+        <div class="tab-strip">
+          <button class="navbtn active" data-stab="app">App</button>
+          <button class="navbtn" data-stab="theme">Theme</button>
+        </div>
+        <div data-settings-tab="app" id="settingsApp"></div>
+        <div data-settings-tab="theme" id="settingsTheme" style="display:none"></div>
+      </section>
+
+      <!-- ---------- Games ---------- -->
+      <section class="screen" data-screen="games">
+        <div class="page-head">
+          <button class="iconbtn" data-home data-icon="back"></button>
+          <div class="title">Games</div>
+        </div>
+        <div class="page-rule"></div>
+        <div class="games-top"><button class="btn secondary">Install adapter…</button></div>
+        <div id="gamesList"></div>
+      </section>
+
+      <!-- ---------- Setup Doctor ---------- -->
+      <section class="screen" data-screen="doctor">
+        <div class="page-head">
+          <button class="iconbtn" data-home data-icon="back"></button>
+          <div class="title">Setup Doctor</div>
+        </div>
+        <div class="page-rule"></div>
+        <div class="doctor-top">
+          <span class="lastrun">last run 21:52:37</span>
+          <button class="btn primary" id="repairAll">Repair all</button>
+        </div>
+        <div id="doctorChecks"></div>
+        <div style="height:4px"></div>
+        <div class="section-title" style="font-size:var(--sz-label);color:var(--muted)">TOOLS</div>
+        <div class="tools-row" style="margin-top:6px">
+          <button class="btn secondary">Verify device locks</button>
+          <button class="btn secondary">Input health check</button>
+          <button class="btn secondary" id="calibrateBtn">Calibrate mouse</button>
+        </div>
+      </section>
+
+      <!-- ---------- Help ---------- -->
+      <section class="screen" data-screen="help">
+        <div class="page-head">
+          <button class="iconbtn" data-home data-icon="back"></button>
+          <div class="title">Help</div>
+        </div>
+        <div class="page-rule"></div>
+
+        <div class="card help-about">
+          <span class="jewel" data-jewel></span>
+          <div>
+            <div class="v1">Lattice Weaver v2.0.0</div>
+            <div class="v2">build 995614d+ · 2026-10-15 · debug</div>
+            <div class="v3">Local cooperative play in which each player uses their own keyboard and mouse in their own instance.</div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+
+        <div class="help-cols">
+          <div class="card help-card help-links">
+            <div class="ht">Links &amp; Support</div>
+            <div class="chip-row">
+              <a class="link-chip" href="https://modrinth.com/mod/latticework" target="_blank" rel="noopener">Modrinth <span data-icon="extlink"></span></a>
+              <a class="link-chip" href="https://bide.cx/" target="_blank" rel="noopener">Lattice <span data-icon="extlink"></span></a>
+              <a class="link-chip" href="https://polar.sh/lattice" target="_blank" rel="noopener">Polar <span data-icon="extlink"></span></a>
+            </div>
+            <div class="chip-row">
+              <a class="link-chip" href="https://github.com/bideco/lattice" target="_blank" rel="noopener">GitHub <span data-icon="extlink"></span></a>
+              <a class="link-chip" href="mailto:support@bide.cx">Email <span data-icon="extlink"></span></a>
+              <a class="link-chip" href="https://ko-fi.com/" target="_blank" rel="noopener">Donate <span data-icon="extlink"></span></a>
+            </div>
+            <div style="height:12px"></div>
+            <button class="btn secondary full" id="sendDiag"><span data-icon="upload"></span> Send diagnostics</button>
+          </div>
+
+          <div class="card help-card help-routing">
+            <div class="ht">How routing works</div>
+            <div class="hbody">Lattice claims each additional mouse and keyboard so that Windows no longer sees them, then routes their input into that player's game window. The host (P0) keeps its own devices. Your device bindings are never released automatically. Pausing routing or closing Lattice leaves every binding in place; a peripheral stays bound until you release it yourself.</div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+
+        <div class="card help-problems">
+          <div class="ht">Common problems</div>
+          <div class="faq"><span class="lead">Routing is</span> <span class="word warn">Paused</span> <span>and no input is being routed. Routing never resumes on its own; please select Resume, or the Capture button. This is deliberate, so that a reconnecting device cannot silently take your input.</span></div>
+          <div class="faq"><span class="lead">A device is</span> <span class="word bad">Missing</span> <span>and has dropped. Please reconnect it, then select Repair on the slot's card. If it has moved to another port, select Reassign instead.</span></div>
+          <div class="faq"><span class="lead">Two identical devices are</span> <span class="word warn">Ambiguous</span> <span>and cannot be told apart. Please run Verify in the Setup Doctor, then operate the device you intend to use. Selection is always by physical input, never from a raw list.</span></div>
+          <div class="faq"><span class="lead">A player has no input in their game.</span> <span>Each additional player requires its own game window, one instance per player, and that window must be linked. Please confirm that the slot shows an active instance.</span></div>
+          <div class="faq"><span class="lead">The application reports that administrator access is required.</span> <span>Applying device locks requires elevation. Please use the Access control in the header to relaunch; Windows will present a User Account Control prompt.</span></div>
+          <div class="faq"><span class="lead">Your own mouse or keyboard appears to have been claimed.</span> <span>The host (P0) is never claimed. If a native device was moved to a player slot, please open Reassign and release it back to native. The host always retains its own devices.</span></div>
+        </div>
+      </section>
+
+    </div><!-- /body -->
+
+    <!-- ===== tips ===== -->
+    <div class="wv-tips" id="tips">
+      <span class="tdiamond"></span>
+      <span id="tipText">Tip: each extra player needs their own mouse and keyboard.</span>
+      <span class="tdiamond"></span>
+    </div>
+
+    <!-- ===== event log ===== -->
+    <div class="wv-log">
+      <div class="loghead" id="logHead">
+        <span class="caret" id="logCaret" data-icon="chevdown"></span>
+        <span class="lt">Event log</span>
+        <span class="copy iconbtn" title="Copy the full log" data-icon="copy" style="border:none;background:none;color:var(--muted)"></span>
+      </div>
+      <div class="logbox" id="logBox"><div class="empty">Quiet. Nothing to report.</div></div>
+    </div>
+
+    <!-- ===== resize grip ===== -->
+    <div class="wv-grip"><div class="bar"></div></div>
+
+    <!-- ===== modal layer ===== -->
+    <div class="wv-scrim" id="scrim"></div>
+    <div class="wv-toast" id="toast"></div>
+
+  </div><!-- /window -->
+  </div><!-- /scaler -->
+
+  <div class="demo-nav" id="demoNav">
+    <span class="lbl">Demo navigator: jump to any screen or play a walkthrough</span>
+    <button data-go="dashboard">Dashboard</button>
+    <button data-go="settings">Settings</button>
+    <button data-go="games">Games</button>
+    <button data-go="help">Help</button>
+    <button data-go="doctor">Setup Doctor</button>
+    <button data-flow="guided">Guided setup ▶</button>
+    <button data-flow="calibration">Mouse calibration ▶</button>
+  </div>
+</div><!-- /stage -->
+
+<script src="js/themes.js"></script>
+<script src="js/weaver.js"></script>
+</body>
+</html>

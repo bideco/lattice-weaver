@@ -1,0 +1,51 @@
+Lattice Weaver — interactive demo (static, no build step)
+==========================================================
+
+WHAT THIS IS
+  A faithful, visual-only replica of the Lattice Weaver companion app's GUI,
+  built as plain HTML/CSS/JS. It accesses no devices, performs no activation,
+  and talks to no backend — every piece of state is faked in the browser.
+
+FILES
+  index.html          Full standalone demo (all four screens + walkthroughs).
+  teaser.html         Compact single-screen dashboard + live theme switcher,
+                      designed to be embedded in an <iframe> on the landing page.
+  css/weaver.css      Design tokens + components, ported from companion/src/gui.
+  js/themes.js        All 35 themes (Lattice Dark + every themes.toml preset),
+                      auto-generated to match the real app's dropdown order.
+  js/weaver.js        All demo interactivity.
+
+DEPLOY
+  Copy the whole weaver-demo/ folder to the site root. It is served as static
+  files — GitHub Pages friendly, no build step. Live URL: bide.cx/weaver-demo/
+  (full demo) and bide.cx/weaver-demo/teaser.html (teaser).
+
+EMBED THE TEASER ON THE LANDING PAGE
+  The teaser is self-contained (it only pulls Google Fonts + its sibling
+  js/themes.js). Drop it into any page with an iframe:
+
+    <iframe
+      src="/weaver-demo/teaser.html"
+      title="Lattice Weaver dashboard preview"
+      loading="lazy"
+      style="width:100%; max-width:780px; height:560px; border:0;
+             border-radius:12px; display:block; margin:0 auto;"
+      scrolling="no">
+    </iframe>
+
+  Notes:
+   - The teaser auto-scales the 760px-wide app down to the iframe width, so a
+     width of ~780px shows it 1:1 and narrower widths shrink it cleanly with no
+     horizontal scroll. Give the iframe ~560px of height at full size.
+   - The teaser's background is transparent, so it inherits the host page's
+     backdrop. Put it over a dark panel for the intended look.
+   - The theme switcher in the header works live; pressing "T" (with the iframe
+     focused) cycles themes, "Shift+T" cycles back.
+
+LINK TO THE FULL DEMO
+    <a href="/weaver-demo/">Explore the Weaver interface →</a>
+
+REGENERATING THE THEME DATA
+  js/themes.js is generated from companion/assets/themes.toml plus the built-in
+  Lattice Dark palette (companion/src/gui/theme.rs). If the app's palettes
+  change, re-run the generator used to produce it and replace js/themes.js.
